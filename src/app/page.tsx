@@ -13,7 +13,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_URL}GerenciamentoProposta/`);
+      const response = await fetch(`${API_URL}`);
       if (!response.ok) {
         throw new Error('Erro ao buscar dados');
       }
@@ -38,7 +38,7 @@ export default function Home() {
     <div className="p-4">
       <h1 className="text-2xl mb-4">Gerenciamento de Propostas</h1>
       {data && (
-        <pre className="bg-gray-100 p-4 rounded">
+        <pre className=" p-4 rounded">
           {JSON.stringify(data, null, 2)}
         </pre>
       )}
