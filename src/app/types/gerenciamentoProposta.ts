@@ -1,6 +1,6 @@
-import {GerenciamentoMeta} from '../types/GerenciamentoMeta'
+import {GerenciamentoMeta} from '../types/gerenciamentoMeta'
 import {GerenciamentoQualitativo} from '../types/gerenciamentoQualitativo'
-import {GerenciamentoQuantitativo} from '../types/GerenciamentoQuantitativo'
+import {GerenciamentoQuantitativo} from '../types/gerenciamentoQuantitativo'
 import {GerenciamentoContrapartida} from '../types/gerenciamentoContrapartida'
 
 
