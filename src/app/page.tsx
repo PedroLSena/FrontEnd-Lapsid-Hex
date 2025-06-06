@@ -1,9 +1,11 @@
 "use client"
 import { useState, useEffect } from "react";
+import { metasServise } from "./services/Metas/metas";
+import {GerenciamentoMeta} from "../app/types/gerenciamentoMeta"
 
 export default function Home() {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<GerenciamentoMeta[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -13,12 +15,9 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_URL}`);
-      if (!response.ok) {
-        throw new Error('Erro ao buscar dados');
-      }
-      const result = await response.json();
-      setData(result);
+      const response = await metasServise.getAllMetas();
+      setData(response);
+
     } catch (error:any) {
       setError(error.message);
     } finally {
