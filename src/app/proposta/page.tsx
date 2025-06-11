@@ -9,7 +9,6 @@ export default async function Proposta() {
     propostas = await propostaService.getAllPropostas();
   } catch (e: any) {
       throw new Error(`Erro ao consumir API${e}`);
-      
   }
 
   return (
