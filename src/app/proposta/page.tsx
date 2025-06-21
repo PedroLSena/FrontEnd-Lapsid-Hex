@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { propostaService } from '../services/Proposta/proposta';
 import { GerenciamentoProposta } from '../types/gerenciamentoProposta';
+import {FaPencilAlt, FaTrash, FaPlus} from "react-icons/fa";
 
 export default async function Proposta() {
 
@@ -15,7 +16,7 @@ export default async function Proposta() {
     <>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold">Propostas</h1>
-        <Link href="/proposta/create" className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm font-medium">Nova Proposta</Link>
+        <Link href="/proposta/create" className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm font-medium"><FaPlus/></Link>
       </div>
       <main className="grid gap-6 grid-cols-1 md:grid-cols-2">
         {propostas.length === 0 && (
@@ -28,9 +29,11 @@ export default async function Proposta() {
               <span className="px-2 py-1 bg-gray-950 rounded text-xs font-mono">{proposta.tipo}</span>
             </div>
             <div className="flex gap-2 justify-end mt-4">
-              <Link href={`/proposta/${proposta.id}`} className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-xs font-medium">Ver detalhes</Link>
-              <Link href={`/proposta/${proposta.id}/edit`} className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition-colors text-xs font-medium">Editar</Link>
-              <Link href={`/proposta/${proposta.id}/delete`} className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors text-xs font-medium">Excluir</Link>
+              <Link href={`/proposta/${proposta.id}`}
+               className="px-3 py-1 bg-blue-600 justify-center flex items-center text-white rounded hover:bg-blue-700 transition-colors text-xs font-medium"
+               >Ver detalhes</Link>
+              <Link href={`/proposta/${proposta.id}/edit`} className="justify-center flex items-center rounded-4xl h-10 w-10 bg-yellow-500 text-white transition-colors text-xs font-medium hover:bg-yellow-700"><FaPencilAlt size={14} /></Link>
+              <Link href={`/proposta/${proposta.id}/delete`} className="justify-center flex items-center rounded-4xl h-10 w-10 bg-red-600 text-white hover:bg-red-700 transition-colors text-xs font-medium"><FaTrash size={14} /></Link>
             </div>
           </div>
         ))}
