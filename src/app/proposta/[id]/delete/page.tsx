@@ -1,6 +1,6 @@
-"use client";
+"use client"
 import { useRouter, useParams } from "next/navigation";
-import { propostaService } from "../../services/Proposta/proposta";
+import { propostaService } from "../../../services/Proposta/proposta";
 import { useState } from "react";
 
 export default function DeleteProposta() {
@@ -25,11 +25,11 @@ export default function DeleteProposta() {
   return (
     <div className="max-w-md mx-auto bg-white p-8 rounded shadow mt-8">
       <h1 className="text-2xl font-bold mb-4 text-red-600">Excluir Proposta</h1>
-      <p className="mb-4">Tem certeza que deseja excluir esta proposta? Esta ação não poderá ser desfeita.</p>
-      <button onClick={handleDelete} className="btn btn-danger" disabled={loading}>
+      <p className="mb-4 text-black">Tem certeza que deseja excluir esta proposta? Esta ação não poderá ser desfeita.</p>
+      <button onClick={handleDelete} className="btn btn-danger text-red-800 bg-gray-300 h-10 w-20 rounded-2xl" disabled={loading}>
         {loading ? "Excluindo..." : "Excluir"}
       </button>
-      <button onClick={() => router.back()} className="btn ml-4">Cancelar</button>
+      <button onClick={() => router.back()} className="btn ml-4 rounded-2xl text-blue-600 bg-gray-300 h-10 w-20">Cancelar</button>
       {error && <div className="text-red-500 mt-2">{error}</div>}
     </div>
   );
