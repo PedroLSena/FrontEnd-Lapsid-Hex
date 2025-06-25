@@ -1,5 +1,5 @@
 import { error } from "console";
-import {api} from "../../types/Api";
+import api from "../Api";
 import {GerenciamentoMeta} from "../../types/gerenciamentoMeta"
 
 

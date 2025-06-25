@@ -1,5 +1,5 @@
 import { error } from "console";
-import {api} from "../../types/Api";
+import api from "../Api";
 import {GerenciamentoProposta} from "../../types/gerenciamentoProposta"
 
 
@@ -23,7 +23,7 @@ export const propostaService ={
     },
     async deleteProposta(id:number):Promise<void>{
         try{
-            await api.delete(`GerenciamentoProposta/${id}`);
+            await api.delete(`/GerenciamentoProposta/${id}`);
             return;
         }catch(error:any){
             throw new Error("Erro ao consumir api", error);

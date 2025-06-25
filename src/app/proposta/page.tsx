@@ -33,7 +33,7 @@ export default async function Proposta() {
                className="px-3 py-1 bg-blue-600 justify-center flex items-center text-white rounded hover:bg-blue-700 transition-colors text-xs font-medium"
                >Ver detalhes</Link>
               <Link href={`/proposta/${proposta.id}/edit`} className="justify-center flex items-center rounded-4xl h-10 w-10 bg-yellow-500 text-white transition-colors text-xs font-medium hover:bg-yellow-700"><FaPencilAlt size={14} /></Link>
-              <Link href={`/proposta/${proposta.id}/delete`} className="justify-center flex items-center rounded-4xl h-10 w-10 bg-red-600 text-white hover:bg-red-700 transition-colors text-xs font-medium"><FaTrash size={14} /></Link>
+              <Link href={`proposta/${proposta.id}/delete`} className="justify-center flex items-center rounded-4xl h-10 w-10 bg-red-600 text-white hover:bg-red-700 transition-colors text-xs font-medium"><FaTrash size={14} /></Link>
             </div>
           </div>
         ))}
