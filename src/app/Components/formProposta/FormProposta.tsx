@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { propostaService } from "../../services/Proposta/proposta";
 import { GerenciamentoProposta } from "../../types/gerenciamentoProposta";
+import { FormMeta } from "./FormMeta";
+import { GerenciamentoMeta } from "@/app/types/gerenciamentoMeta";
+import { FaPlus } from "react-icons/fa";
 
 const FormPorposta: React.FC = () => {
     const router = useRouter();
@@ -17,13 +20,18 @@ const FormPorposta: React.FC = () => {
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [meta, setMeta] = useState<GerenciamentoMeta[]>([]);
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         setLoading(true);
         setError("");
         try {
-            let dataForm = {...form, proposta_id: Date.now()}
+            let dataForm = {
+                ...form,
+                proposta_id: Date.now(),
+                gerenciamento_metas: meta,
+            }
             await propostaService.createProposta(dataForm);
             router.push("/proposta");
         } catch (err) {
@@ -33,10 +41,33 @@ const FormPorposta: React.FC = () => {
         }
     }
 
+    const newMeta = () => {
+        const NovaMeta: GerenciamentoMeta = {
+            id: Date.now(),
+            alcancado: 0,
+            arquivos_ids: [],
+            ordem: 0
+        }
+
+        setMeta(prev => [...prev, NovaMeta])
+    }
+
+    const removeMeta = (index: number) => {
+        const novaMeta = meta.filter((_, i) => i != index);
+        setMeta(novaMeta);
+    }
+
+    const atualizarMeta = (index: number, updated: GerenciamentoMeta) => {
+        const novasMetas = [...meta];
+        novasMetas[index] = updated;
+        setMeta(novasMetas);
+    };
+
+
     return (
         <div className="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow">
             <h1 className="text-2xl font-bold mb-4 text-black">Nova Proposta</h1>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onClick={handleSubmit}  className="space-y-4">
                 <div>
                     {/* <label className="block font-medium text-black">Proposta ID</label>
       <input type="number" className="input" value={form.proposta_id} onChange={e => setForm(f => ({...f, proposta_id: Number(e.target.value)}))} required /> */}
@@ -52,8 +83,64 @@ const FormPorposta: React.FC = () => {
                         <option value="OUTRO">OUTRO</option>
                     </select>
                 </div>
-                {/* Aqui você pode adicionar campos para metas, qualitativo, quantitativo e contrapartida, ou criar componentes para cada um */}
-                <button type="submit" className="btn btn-primary text-black bg-gray-400 p-2 rounded-2xl" disabled={loading}>
+                <div>
+                    <h1 className="text-black font-bold">Meta</h1>
+                    <div className="flex justify-between">
+                        {meta.map((meta, index) => (
+                            <FormMeta
+
+                                key={meta.id}
+                                meta={meta}
+                                onChange={(updated) => atualizarMeta(index, updated)}
+                                onRemove={() => removeMeta(index)}
+                            />
+                        ))}
+                        <button type="button" onClick={newMeta} className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm font-medium">
+                            <FaPlus />
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h1 className="text-black font-bold">Caractericacao</h1>
+                    <div className="flex justify-end">
+                        <button type="button" className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm font-medium">
+                            <FaPlus />
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h1 className="text-black font-bold">Contrapartida</h1>
+                    <div className="flex justify-end">
+                        <button className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm font-medium">
+                            <FaPlus />
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h1 className="text-black font-bold">Proposta</h1>
+                    <div className="flex justify-end">
+                        <button className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm font-medium">
+                            <FaPlus />
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h1 className="text-black font-bold">Qualitativo</h1>
+                    <div className="flex justify-end">
+                        <button className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm font-medium">
+                            <FaPlus />
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h1 className="text-black font-bold justify-end h-full">Quantitativo</h1>
+                    <div className="flex justify-end">
+                        <button className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm font-medium">
+                            <FaPlus />
+                        </button>
+                    </div>
+                </div>
+                <button className="btn btn-primary text-black bg-gray-400 p-2 rounded-2xl" disabled={loading}>
                     {loading ? "Salvando..." : "Criar Proposta"}
                 </button>
                 {error && <div className="text-red-500">{error}</div>}
