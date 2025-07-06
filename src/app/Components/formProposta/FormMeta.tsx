@@ -11,7 +11,7 @@ export const FormMeta: React.FC<MetaItens> = ({ meta, onChange, onRemove }) => {
     return (
         <>
         <div className="block m-2">
-            <div className="flex mg-4 justify-between">
+            <div className="flex mg-4 justify-between my-2">
                 <label className="text-black ">Alcancado:</label>
                 <input
                 className=" border-2 border-black text-black"
@@ -20,7 +20,7 @@ export const FormMeta: React.FC<MetaItens> = ({ meta, onChange, onRemove }) => {
                 onChange={(e)=> onChange({...meta, alcancado: Number(e.target.value)})}
                 />
             </div>
-            <div className="flex mg-4 justify-between">
+            <div className="flex mg-4 justify-between my-2">
                 <label className="text-black">Ordem:</label>
                 <input
                     className=" border-2 border-black text-black"
