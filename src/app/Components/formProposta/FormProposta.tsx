@@ -6,6 +6,8 @@ import { GerenciamentoProposta } from "../../types/gerenciamentoProposta";
 import { FormMeta } from "./FormMeta";
 import { GerenciamentoMeta } from "@/app/types/gerenciamentoMeta";
 import { FaPlus } from "react-icons/fa";
+import { GerenciamentoCaracterizacao } from "@/app/types/gerenciamentoCaracterizacao";
+import { FormCarac } from "./FormCarac";
 
 const FormPorposta: React.FC = () => {
     const router = useRouter();
@@ -21,6 +23,7 @@ const FormPorposta: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [meta, setMeta] = useState<GerenciamentoMeta[]>([]);
+    const [carac, setCarac] = useState<GerenciamentoCaracterizacao[]>([]);
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -31,6 +34,7 @@ const FormPorposta: React.FC = () => {
                 ...form,
                 proposta_id: Date.now(),
                 gerenciamento_metas: meta,
+                gerenciamento_carac: carac,
             }
             await propostaService.createProposta(dataForm);
             router.push("/proposta");
@@ -63,6 +67,27 @@ const FormPorposta: React.FC = () => {
         setMeta(novasMetas);
     };
 
+        const newCarac = () => {
+        const NovaCarac: GerenciamentoCaracterizacao = {
+            id: Date.now(),
+            quantidade: 0,
+            categorizacoes_ids: [],
+        }
+
+        setCarac(prev => [...prev, NovaCarac])
+    }
+
+    const removeCarac = (index: number) => {
+        const novaCarac = carac.filter((_, i) => i != index);
+        setCarac(novaCarac);
+    }
+
+    const atualizarCarac = (index: number, updated: GerenciamentoCaracterizacao) => {
+        const novasCaracs = [...carac];
+        novasCaracs[index] = updated;
+        setCarac(novasCaracs);
+    };
+
 
     return (
         <div className="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow">
@@ -85,7 +110,7 @@ const FormPorposta: React.FC = () => {
                 </div>
                 <div>
                     <h1 className="text-black font-bold">Meta</h1>
-                    <div className="flex justify-between">
+                    <div className="block justify-between m-2 w-2xs">
                         {meta.map((meta, index) => (
                             <FormMeta
 
@@ -102,8 +127,17 @@ const FormPorposta: React.FC = () => {
                 </div>
                 <div>
                     <h1 className="text-black font-bold">Caractericacao</h1>
-                    <div className="flex justify-end">
-                        <button type="button" className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm font-medium">
+                    <div className="block justify-between m-2 w-2xs">
+                        {carac.map((carac, index) => (
+                            <FormCarac
+
+                                key={carac.id}
+                                carac={carac}
+                                onChange={(updated) => atualizarCarac(index, updated)}
+                                onRemove={() => removeCarac(index)}
+                            />
+                        ))}
+                        <button type="button" onClick={newCarac} className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm font-medium">
                             <FaPlus />
                         </button>
                     </div>
