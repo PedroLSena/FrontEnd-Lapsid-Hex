@@ -10,20 +10,20 @@ interface MetaItens {
 export const FormMeta: React.FC<MetaItens> = ({ meta, onChange, onRemove }) => {
     return (
         <>
-        <div className="block">
-            <div className="mg-4">
+        <div className="block m-2">
+            <div className="flex mg-4 justify-between">
                 <label className="text-black ">Alcancado:</label>
                 <input
-                className="border-2 border-black text-black"
+                className=" border-2 border-black text-black"
                 type="number"
                 value={meta.alcancado}
                 onChange={(e)=> onChange({...meta, alcancado: Number(e.target.value)})}
                 />
             </div>
-            <div>
-                <label className="text-black ">Ordem:</label>
+            <div className="flex mg-4 justify-between">
+                <label className="text-black">Ordem:</label>
                 <input
-                    className="border-2 border-black text-black"
+                    className=" border-2 border-black text-black"
                     value={meta.ordem}
                     onChange={e => onChange({ ...meta, ordem: Number(e.target.value) })}
                     type="number" />
